@@ -576,6 +576,7 @@ def load_ping():
 #	global ping_export
 	while(1):
 		pingpass = os.getcwd() + '/' + project +'.ping'	# 複数のGrassHopperを動かすことを想定する。プロジェクト名を鍵にして管理する
+		pingpass = pingfilepass
 		if(os.path.isfile(pingpass)):
 			filehandle = open(pingpass)
 			dm1 = filehandle.readline()

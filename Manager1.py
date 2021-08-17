@@ -602,6 +602,8 @@ def send_ping():
 	global ping_file
 	global ping_std
 	pingpass = os.getcwd() + '/' + project +'.ping'	# 複数のGrassHopperを動かすことを想定する。プロジェクト名を鍵にして管理する
+	pingpass = filepass[0:-4] + '.ping'
+	
 	savemode = 'x'					# とりあえずのgetcwd()はカレントディレクトリ。インストールディレクトリ的なものを使いたい。
 	if(os.path.isfile(pingpass)):
 		savemode='w'
@@ -624,6 +626,7 @@ def load_ping():
 	global ping_export
 	while(1):
 		pingpass = os.getcwd() + '/' + project +'.ping'	# 複数のGrassHopperを動かすことを想定する。プロジェクト名を鍵にして管理する
+		pingpass = filepass[0:-4] + '.ping'
 		if(os.path.isfile(pingpass)):
 			filehandle = open(pingpass)
 			dm1 = filehandle.readline()
