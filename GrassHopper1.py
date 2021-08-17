@@ -45,14 +45,15 @@ def argv():
 	project = p[-1][0:-4]
 	datafilepass = projectfilepass[0:-4] + '.dat'
 	pingfilepass = projectfilepass[0:-4] + '.ping'
-	exportfilepass = projectfilepass[0:-4] + '.txt'
+	exportfilepass = projectfilepass[0:-4] + '_export.txt'
+	print('argv: ',projectfilepass)
 
 filename = []		# filename[f] = ファイル名
 file_color_vivid = []		# 表示色。デフォ値を用意しておく。明るい方
 file_color_trans = []		# 表示色。デフォ値を用意しておく。透けてる方
 file_timefactor = []		# ファイル名の中から実験時刻の情報をみつけたとき入れとく。
 vendername = []		# vendername[f] = LCMS会社の記号。waters=0, thermo=1, sciex=2
-vender = ['waters','thermo','sciex']
+vender = ['waters','thermo','sciex', 'shimadzu', 'bruker']
 files = 0			# データファイルの数
 data_rt = []		# data_rt[f][sign] = リテンションタイム。輝度順に並んでいる
 data_mz = []		# data_mz[f][sign] = m/z値。輝度順に並んでいる
@@ -554,6 +555,7 @@ ping_export = 0
 # Managerにpingを送る
 def send_ping():
 	pingpass = os.getcwd() + '/' + project +'.ping'	# 複数のGrassHopperを動かすことを想定する。プロジェクト名を鍵にして管理する
+	pingpass = pingfilepass
 	savemode = 'x'					# とりあえずのgetcwd()はカレントディレクトリ。インストールディレクトリ的なものを使いたい。
 	if(os.path.isfile(pingpass)):
 		savemode='w'
@@ -1496,7 +1498,8 @@ def calibration_reset_mz():
 
 # ピーク積分値をファイルに書き出し
 def export_data():
-	outfile = project + '_export.txt'
+#	outfile = project + '_export.txt'
+	outfile = exportfilepass
 	savemode = 'x'
 	if os.path.isfile(outfile):savemode = 'w'
 	filehandle = open(outfile, savemode)
