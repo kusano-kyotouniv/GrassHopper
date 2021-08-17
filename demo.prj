@@ -1,0 +1,10 @@
+GrassHopper User Settings
+Filename	Vender	Color	show in static mode = 1	([tab]deliminated format)
+210628_redpepper3_wata01.txt	waters	#FF0000	1	0	2	#FF0000
+210705_bellplant_fruit49.txt	waters	#00FF00	1	0	1	#0000FF
+210610_redpepper_wata03.txt	waters	#FFFF00	1	0	2	#FFFF00
+Expected m/z	label	retention time	use as calibration standard = 1	([tab]deliminated format)
+306.206916	Capsaicin	9.1	1	C18H27NO3 + H	1
+468.259736	Capsaicin Glucoside	7.1	1	C18H27NO3 + H + C6H12O6 - H2O	1
+449.108379	Quercitrin (glucoside)	4.8	1	C21H20O11 + H	1
+303.050473	Quercetin	4.8	1	C15H10O7 + H	1
