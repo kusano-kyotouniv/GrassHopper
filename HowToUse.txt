@@ -1,0 +1,80 @@
+#	
+#	Copyright and disclaimer 著作権および免責事項について
+#	
+#	This software is made available for use by end users only.
+#	このソフトウェアの入手はエンドユーザーのみによる使用を目的とするものにのみ限られます。
+#	Any reproduction, copying, modification or redistribution of this software is expressly prohibited.
+#	このソフトウェアの改変、複製、再頒布は固く禁止されています。
+#	I assumes no responsibility or liability for any costs, damages, etc. arising from the use of this software.
+#	このソフトウェアに使用によって生じたいかなる損害や費用等の一切について私は責任を負いません。
+# 	
+#	Hiroaki KUSANO, Aug 17 2021
+#	
+
+[GrassHopperの使用法の一例]
+
+1. Anacondaをインストールしてpythonを入手
+	'Anaconda'で検索、ダウンロードしてインストールする
+
+2. 依存関係をインストールする
+	ターミナル (mac/linux) または コマンドプロンプト(windows)で以下のように打つ：
+	'conda create -n GrassHopper python=3.8'
+	'conda activate GrassHopper'
+	'conda install pyopengl'
+	'conda install numpy'
+	'pip install pyopengl-accelerate'
+	
+	* 仮想環境名 'GrassHopper' は一例です。
+	* 全てのプロセスが成功している必要があります。
+
+3. GrassHopperをダウンロードして起動する
+	releaseから source code (zip) file をダウンロードして解凍する
+	ターミナル (mac/linux) または コマンドプロンプト(windows)で
+	'cd' コマンドを使い、解凍されたフォルダに移動する
+	'python Manager1.py' と打つ
+
+次回以降の起動:
+	ターミナル (mac/linux) または コマンドプロンプト(windows)で
+		'cd' コマンドを使い、解凍されたフォルダに移動する
+	'conda activate GrassHopper' と打つ
+	'python Manager1.py' と打つ
+
+GrassHopperでロードできるデータファイルの準備方法
+	1. 'ProteoWizard'とその依存関係を公式ページの案内に従ってインストールする
+	2. MSConverGUI を使ってLCMS測定データファイルを 'text' 指定で変換する
+	
+
+[Example for how to use GrassHopper]
+
+1. Install Anaconda to get python
+	search word 'Anaconda' in Google and download and install it
+
+2. Install dependencies
+	in Terminal (mac/linux) or Command-Prompt (windows) type:
+	'conda create -n GrassHopper python=3.8'
+	'conda activate GrassHopper'
+	'conda install pyopengl'
+	'conda install numpy'
+	'pip install pyopengl-accelerate'
+	
+	* The conda environment name 'GrassHopper' is just only an example.
+	* All processes should be successfully done.
+	
+3. Download and Run GrassHopper
+	download source code (zip) file from this release page and unzip it.
+	in Terminal (mac/linux) or Command-Prompt (windows):
+		move to the of the unzip-ed folder/directory by using 'cd' command
+	type: 'python Manager1.py'
+
+for Next time Run:
+	in Terminal (mac/linux) or Command-Prompt (windows):
+		move to the of the unzip-ed folder/directory by using 'cd' command
+	type: 'conda activate GrassHopper'
+	type: 'python Manager1.py'
+
+To prepare LC-MS data loadable for GrassHopper:
+	1. Visit 'ProteoWizard' page and install it and the dependencies following the instruction
+	2. using MSConvertGUI in it, convert data files to 'text' format
+
+
+
