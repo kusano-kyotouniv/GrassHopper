@@ -17,9 +17,11 @@
 
 1. Anacondaをインストールしてpythonを入手
 	'Anaconda'で検索、ダウンロードしてインストールする
-
+	
 2. 依存関係をインストールする
-	ターミナル (mac/linux) または コマンドプロンプト(windows)で以下のように打つ：
+	ターミナル (mac/linux) で以下のように打つ：
+	* windowsの場合はスタートメニューに現れるAnaconda3(64-bit)の中のAnaconda Prompt(anaconda3) を使います
+	
 	'conda create -n GrassHopper python=3.8'
 	'conda activate GrassHopper'
 	'conda install pyopengl'
@@ -28,6 +30,16 @@
 	
 	* 仮想環境名 'GrassHopper' は一例です。
 	* 全てのプロセスが成功している必要があります。
+
+*. windowsの場合は以下の操作が追加で必要になります
+	https://www.transmissionzero.co.uk/files/software/development/GLUT/freeglut-MSVC.zip をダウンロード、解凍する。
+	エクスプローラーでフォルダに入り、
+	freeglut -> bin -> x64 とフォルダに潜って freeglut.dll を見つけて「コピー」する
+	エクスプローラーのナビゲーションウインドウで Windows(C:) に入り、
+	Windows -> System32 と潜って「ペースト」する。
+	
+	* ペーストするとき「権限が必要です」等のメッセージが出るかもしれません
+	* ダウンロードページへは 「freeglut Transmission Zero」 で検索しても行けます
 
 3. GrassHopperをダウンロードして起動する
 	releaseから source code (zip) file をダウンロードして解凍する
@@ -52,7 +64,9 @@ GrassHopperでロードできるデータファイルの準備方法
 	search word 'Anaconda' in Google and download and install it
 
 2. Install dependencies
-	in Terminal (mac/linux) or Command-Prompt (windows) type:
+	in Terminal (mac/linux) type:
+	* for windows user; in 'Anaconda Prompt(anaconda3)' in start menu 'Anaconda3(64-bit)' type:
+	
 	'conda create -n GrassHopper python=3.8'
 	'conda activate GrassHopper'
 	'conda install pyopengl'
@@ -61,6 +75,14 @@ GrassHopperでロードできるデータファイルの準備方法
 	
 	* The conda environment name 'GrassHopper' is just only an example.
 	* All processes should be successfully done.
+	
+*. for windows users; following is necessary 
+	Download and unzip https://www.transmissionzero.co.uk/files/software/development/GLUT/freeglut-MSVC.zip
+	In the unziped folder, find and copy freeglut.dll in the folder freeglut/bin/x64/
+	and paste it to C:/Windows/System32
+	
+	* You may have warnings when you paste the file into System32 folder
+	* You may visit the site by searching word 'freeglut Transmission Zero' in Google
 	
 3. Download and Run GrassHopper
 	download source code (zip) file from this release page and unzip it.

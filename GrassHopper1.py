@@ -2172,7 +2172,7 @@ dynamic_zoom()	# __main__で最初に一回呼ぶ
 glutInit(sys.argv)
 glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
 glutInitWindowSize(900,600)			# window の初期サイズ
-glutCreateWindow("GrassHopper - an LCMS Data Analyser : " + project)	# これはバーに表示するソフトの名前のようだ
+glutCreateWindow(b"GrassHopper - an LCMS Data Analyser : " + project.encode())	# これはバーに表示するソフトの名前のようだ
 glEnable(GL_DEPTH_TEST)				# 裏側に隠れた部分を表示しない機能
 glEnable(GL_BLEND)					# 透過処理を有効化
 glBlendFunc(GL_SRC_ALPHA, GL_ONE)	# 透過処理の内容を記号で指定するらしい
