@@ -1329,8 +1329,65 @@ def calibration_rt():
 	set_signal()
 	set_library()
 
+# Rtの測定ズレを治す。同じ化合物由来のピークをユーザーが選んで合わせる。
+def calibration_rt_horizon():
+	global data_rt
+	
+	# まず補正できる状態かどうかチェックするためにデータを探す
+	peaktop_mz_list = []
+	peaktop_rt_list = []
+	peaktop_count = 0
+	for f in range(0,files):	# ファイルごとにいっこずつピークトップの値を出す。
+		peaktop = 0			# ピークトップのシグナル強度
+		peaktop_rt = (-10)	# ピークトップのRt
+		peaktop_mz = (-10)	# ピークトップのmz
+		for p in range(0, library_peaks):
+			if(len(library_signalindex[p][f]) > 5):
+				for n in range(0, len(library_signalindex[p][f]) ):
+					if(peaktop < data_it[f][ library_signalindex[p][f][n] ] ):
+						peaktop = data_it[f][ library_signalindex[p][f][n] ]
+						peaktop_rt = data_rt[f][ library_signalindex[p][f][n] ]
+						peaktop_mz = data_mz[f][ library_signalindex[p][f][n] ]
+		peaktop_rt_list.append(peaktop_rt)
+		peaktop_mz_list.append(peaktop_mz)
+		if(peaktop >0):
+			peaktop_count += 1
+	if(peaktop_count < 2):		# ピーク選択のあるファイルが２個未満の場合は補正不能なのでreturn
+		return
+	
+	# データの分布を調べて補正できる状態かどうか調べる
+	peaktopmz_max = 0		# 最大値。
+	peaktopmz_min = 10000	# 最小値。ピークがなかったやつに注意。
+	peaktoprt_average = 0	# 平均もついでに計算する。
+	peaktoprt_count = 0
+	for f in range(0,files):	# 見つけたピークトップのmz値が一定範囲に収まっているかをチェック
+		if(peaktopmz_max < peaktop_mz_list[f]):
+			peaktopmz_max = peaktop_mz_list[f]
+		if(peaktop_mz_list[f] >0):	# ピークが選択されていないファイルは初期値(-10)なので判定に使える
+			peaktoprt_average = peaktoprt_average + peaktop_rt_list[f]	# ついでに平均も取る
+			peaktoprt_count += 1
+			if(peaktopmz_min > peaktop_mz_list[f]):
+				peaktopmz_min = peaktop_mz_list[f]
+	peaktoprt_average = peaktoprt_average/peaktoprt_count
+	if(peaktopmz_max - peaktopmz_min > 1):	# 違う化合物が選択されている場合は補正不能なのでreturn
+		return
+	
+	# 補正する。ファイルごとに補正値をはじき出して引き算。
+	for f in range(0,files):
+		if(peaktop_mz_list[f] >0):	# ピークが選択されていないファイルは初期値(-10)なので判定に使える
+			slope = 1	# 平行移動なのでslopeは1
+			intercept = peaktoprt_average - peaktop_rt_list[f]	
+			print('calib_rt: file#: ',f, 'slope:', slope, 'intercept:', intercept)
+			
+			# 実測値に補正を入れてみる。この計算は時間かかる注意
+			data_rt[f] = (np.array(data_rt[f], dtype=np.float32) * slope + intercept).tolist()
+		
+	set_signal()
+	peak_delete_all()
+	set_library()
 
-# 大きなRtの差を補正する。２ペアを使って1次関数にする。
+
+# 大きなRtの差を補正する。２ペアを使って1次関数にする。何故か機能しない。
 def calibration_rt_large():
 	
 	global data_rt
@@ -1871,7 +1928,7 @@ def pulldownmenu(item):
 	if(item == 6): pass
 	if(item == 7): pass
 	if(item == 8): calibration_rt()
-	if(item == 9): calibration_rt_large()
+	if(item == 9): calibration_rt_horizon()
 	if(item ==10): calibration_reset_rt()
 	if(item ==11): calibration_mz()
 	if(item ==12): calibration_reset_mz()
@@ -1891,7 +1948,7 @@ def set_pulldownmenu():
 				'',
 				'< calibration >',
 				'align time axis',
-				'align LC condition (select two pair of peaks)',
+				'align LC condition (select peaks from a compond)',
 				'reset time axis alignment',
 				'calibrate m/z detection',
 				'reset m/z calibration ',
@@ -1942,9 +1999,9 @@ def resize(width,height):
 
 # ジョイスティック入力
 camera_rotate_grid = 2		# カメラ位置をまっすぐの位置にする。1だと90度単位。2だと45度単位
-camera_rotate_speed = 0.025	# フィールドを回す速さ。大きいほど速い
-stick_speed_z = 50000		# アナログスティックでの動きの速さ。仰角の速度。大きいほど遅い
-stick_speed_xy = 800000		# アナログスティックでの動きの速さ。水平方向の移動速度。大きいほど遅い
+camera_rotate_speed = 0.015	# フィールドを回す速さ。大きいほど速い 0.015
+stick_speed_z = 50000		# アナログスティックでの動きの速さ。仰角の速度。大きいほど遅い 50000
+stick_speed_xy = 800000		# アナログスティックでの動きの速さ。水平方向の移動速度。大きいほど遅い 800000
 stick_x_zero = 0
 stick_y_zero = 0		# アナログスティックのゼロ点を覚えておくためのglobal変数
 stick_z_zero = 0
@@ -2200,7 +2257,6 @@ thread1.start()
 thread2 = threading.Thread(target = animation_driver)
 thread2.setDaemon(True)
 thread2.start()
-
 
 glutMainLoop()
 
