@@ -1929,14 +1929,15 @@ def pulldownmenu(item):
 	if(item == 7): pass
 	if(item == 8): calibration_rt()
 	if(item == 9): calibration_rt_horizon()
-	if(item ==10): calibration_reset_rt()
-	if(item ==11): calibration_mz()
-	if(item ==12): calibration_reset_mz()
-	if(item ==13): pass
+	if(item ==10): calibration_rt_large()
+	if(item ==11): calibration_reset_rt()
+	if(item ==12): calibration_mz()
+	if(item ==13): calibration_reset_mz()
 	if(item ==14): pass
-	if(item ==15): animation_mode = 1-animation_mode
-	if(item ==16): align_straight()
-	if(item ==17): os._exit(0)
+	if(item ==15): pass
+	if(item ==16): animation_mode = 1-animation_mode
+	if(item ==17): align_straight()
+	if(item ==18): os._exit(0)
 	return(0)
 def set_pulldownmenu():
 	menutext = ['< peak assignment >',
@@ -1948,7 +1949,8 @@ def set_pulldownmenu():
 				'',
 				'< calibration >',
 				'align time axis',
-				'align LC condition (select peaks from a compond)',
+				'align LC condition (select peaks from a compound)',
+				'align LC difference (select two pair of peaks)',
 				'reset time axis alignment',
 				'calibrate m/z detection',
 				'reset m/z calibration ',
@@ -1976,6 +1978,7 @@ def set_pulldownmenu():
 	glutAddMenuEntry(menutext[15],15)
 	glutAddMenuEntry(menutext[16],16)
 	glutAddMenuEntry(menutext[17],17)
+	glutAddMenuEntry(menutext[18],18)
 	glutAttachMenu(GLUT_RIGHT_BUTTON)
 
 # リサイズ。
